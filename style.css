@@ -15,6 +15,8 @@
   --radius-xl: 30px;
   --radius-lg: 22px;
   --radius-md: 16px;
+  --font-body: "Candara", "Optima", "Segoe UI", sans-serif;
+  --font-display: "Book Antiqua", "Palatino Linotype", "URW Palladio L", serif;
 }
 
 /* Base layout */
@@ -31,7 +33,7 @@ body {
 body {
   position: relative;
   overflow-x: hidden;
-  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-family: var(--font-body);
   color: var(--text-main);
   background:
     radial-gradient(circle at top, rgba(124, 69, 255, 0.35), transparent 35%),
@@ -160,7 +162,7 @@ img {
   place-items: center;
   padding: 24px;
   text-align: center;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: var(--font-display);
   font-size: 1.3rem;
   letter-spacing: 0.03em;
   color: rgba(249, 240, 255, 0.95);
@@ -184,7 +186,7 @@ img {
 .alert-kicker {
   margin: 0 0 10px;
   color: var(--accent-blue);
-  font-family: "Century Gothic", "Trebuchet MS", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -194,7 +196,8 @@ img {
 .celebration-card h2,
 .alert-panel h1 {
   margin: 0;
-  font-family: "Century Gothic", "Trebuchet MS", sans-serif;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
   line-height: 1.08;
 }
 
@@ -234,7 +237,7 @@ img {
   padding: 13px 24px;
   min-width: 116px;
   font-size: 0.95rem;
-  font-family: "Century Gothic", "Trebuchet MS", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   letter-spacing: 0.02em;
   color: #fff;
