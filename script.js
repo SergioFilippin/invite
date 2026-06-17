@@ -6,6 +6,7 @@ const inviteCard = document.getElementById("inviteCard");
 const celebrationScreen = document.getElementById("celebrationScreen");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
+const buttonArea = document.getElementById("buttonArea");
 
 const canvas = document.getElementById("celebrationCanvas");
 const ctx = canvas.getContext("2d");
@@ -20,6 +21,26 @@ let confettiActiveUntil = 0;
 function setupMediaFallback(imageId, placeholderId) {
   const image = document.getElementById(imageId);
   const placeholder = document.getElementById(placeholderId);
+  const fallbackQueue = (image.dataset.fallbacks || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  function showPlaceholder() {
+    image.style.display = "none";
+    placeholder.classList.remove("hidden");
+  }
+
+  function tryNextSource() {
+    const nextSource = fallbackQueue.shift();
+
+    if (!nextSource) {
+      showPlaceholder();
+      return;
+    }
+
+    image.src = nextSource;
+  }
 
   image.addEventListener("load", () => {
     image.style.display = "block";
@@ -27,16 +48,14 @@ function setupMediaFallback(imageId, placeholderId) {
   });
 
   image.addEventListener("error", () => {
-    image.style.display = "none";
-    placeholder.classList.remove("hidden");
+    tryNextSource();
   });
 
   if (image.complete) {
     if (image.naturalWidth > 0) {
       placeholder.classList.add("hidden");
     } else {
-      image.style.display = "none";
-      placeholder.classList.remove("hidden");
+      tryNextSource();
     }
   }
 }
@@ -59,6 +78,7 @@ function startCountdown() {
 
   window.setTimeout(() => {
     alertScreen.classList.add("hidden");
+    document.body.classList.remove("preload");
   }, 5000);
 }
 
@@ -73,19 +93,49 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
+function overlapsYesButton(left, top, width, height) {
+  const areaRect = buttonArea.getBoundingClientRect();
+  const yesRect = yesButton.getBoundingClientRect();
+  const buffer = 18;
+
+  const yesLeft = yesRect.left - areaRect.left - buffer;
+  const yesTop = yesRect.top - areaRect.top - buffer;
+  const yesRight = yesLeft + yesRect.width + buffer * 2;
+  const yesBottom = yesTop + yesRect.height + buffer * 2;
+
+  const candidateRight = left + width;
+  const candidateBottom = top + height;
+
+  return !(
+    candidateRight < yesLeft ||
+    left > yesRight ||
+    candidateBottom < yesTop ||
+    top > yesBottom
+  );
+}
+
 function positionNoButtonRandomly() {
+  const areaRect = buttonArea.getBoundingClientRect();
   const buttonRect = noButton.getBoundingClientRect();
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
-  const margin = 12;
+  const margin = 8;
 
-  const maxX = Math.max(margin, viewportWidth - buttonRect.width - margin);
-  const maxY = Math.max(margin, viewportHeight - buttonRect.height - margin);
+  const maxX = Math.max(margin, areaRect.width - buttonRect.width - margin);
+  const maxY = Math.max(margin, areaRect.height - buttonRect.height - margin);
 
-  const randomX = Math.random() * (maxX - margin) + margin;
-  const randomY = Math.random() * (maxY - margin) + margin;
+  let randomX = margin;
+  let randomY = margin;
+
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    randomX = Math.random() * (maxX - margin) + margin;
+    randomY = Math.random() * (maxY - margin) + margin;
+
+    if (!overlapsYesButton(randomX, randomY, buttonRect.width, buttonRect.height)) {
+      break;
+    }
+  }
 
   noButton.classList.add("is-running");
+
   noButton.style.left = `${clamp(randomX, margin, maxX)}px`;
   noButton.style.top = `${clamp(randomY, margin, maxY)}px`;
 }

@@ -7,7 +7,7 @@
   <title>Convite Especial</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="preload">
   <!-- Decorative background layers -->
   <div class="background-glow background-glow-left" aria-hidden="true"></div>
   <div class="background-glow background-glow-right" aria-hidden="true"></div>
@@ -17,9 +17,9 @@
   <!-- Intro alert shown for the first 5 seconds -->
   <div class="alert-screen" id="alertScreen" role="dialog" aria-modal="true" aria-labelledby="alertTitle">
     <div class="alert-panel">
-      <span class="alert-badge">Protecao do sistema</span>
-      <p class="alert-kicker">Escaneando ambiente emocional...</p>
-      <h1 id="alertTitle">AGUARDE, O iOS ESTA SENDO PROTEGIDO</h1>
+      <span class="alert-badge">🚨 Protecao do sistema 🚨</span>
+      <p class="alert-kicker">⚠️ Escaneando ambiente emocional... ⚠️</p>
+      <h1 id="alertTitle">🚨 AGUARDE, O iOS ESTA SENDO PROTEGIDO 🚨</h1>
       <p class="alert-copy">Aplicando uma camada extra de seguranca romantica. Nenhuma acao sua e necessaria.</p>
       <div class="countdown-shell" aria-live="polite" aria-atomic="true">
         <span class="countdown-label">Liberando convite em</span>
@@ -35,7 +35,7 @@
     <!-- Main invitation card -->
     <section class="invite-card" id="inviteCard" aria-labelledby="inviteTitle">
       <div class="media-frame">
-        <img id="inviteImage" src="assets/foto.jpg" alt="Imagem especial do convite">
+        <img id="inviteImage" src="assets/foto.jpg" data-fallbacks="assets/image.jpg" alt="Imagem especial do convite">
         <div class="media-placeholder" id="imagePlaceholder">
           <span>Imagem especial aqui</span>
         </div>
