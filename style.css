@@ -168,7 +168,7 @@ img {
 
 .media-placeholder.hidden,
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .card-copy,
