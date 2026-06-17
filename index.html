@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convite romantico em site estatico para GitHub Pages.">
+  <title>Convite Especial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Decorative background layers -->
+  <div class="background-glow background-glow-left" aria-hidden="true"></div>
+  <div class="background-glow background-glow-right" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="flash-overlay" id="flashOverlay" aria-hidden="true"></div>
+
+  <!-- Intro alert shown for the first 5 seconds -->
+  <div class="alert-screen" id="alertScreen" role="dialog" aria-modal="true" aria-labelledby="alertTitle">
+    <div class="alert-panel">
+      <span class="alert-badge">Protecao do sistema</span>
+      <p class="alert-kicker">Escaneando ambiente emocional...</p>
+      <h1 id="alertTitle">AGUARDE, O iOS ESTA SENDO PROTEGIDO</h1>
+      <p class="alert-copy">Aplicando uma camada extra de seguranca romantica. Nenhuma acao sua e necessaria.</p>
+      <div class="countdown-shell" aria-live="polite" aria-atomic="true">
+        <span class="countdown-label">Liberando convite em</span>
+        <strong class="countdown-value" id="countdownValue">5</strong>
+      </div>
+      <div class="alert-meter" aria-hidden="true">
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <main class="page" id="app">
+    <!-- Main invitation card -->
+    <section class="invite-card" id="inviteCard" aria-labelledby="inviteTitle">
+      <div class="media-frame">
+        <img id="inviteImage" src="assets/foto.jpg" alt="Imagem especial do convite">
+        <div class="media-placeholder" id="imagePlaceholder">
+          <span>Imagem especial aqui</span>
+        </div>
+      </div>
+
+      <div class="card-copy">
+        <p class="eyebrow">Convite feito com carinho</p>
+        <h2 id="inviteTitle">Parabens, Maria Laura!</h2>
+        <p>Voce foi convidada a passar um dia comigo!!</p>
+        <p>Te convido para almocar em minha residencia, onde irei cozinhar um belo macarrao para voce, porque eu sei que voce gosta muito.</p>
+        <p>Depois, podemos ficar de grude o resto da tarde assistindo algum filme.</p>
+        <p>E no final do dia, assistiremos ao jogo do Brasil agarradinhos, igual da ultima vez.</p>
+        <p class="question">Aceitas?</p>
+      </div>
+
+      <div class="button-row" id="buttonArea">
+        <button class="action-button action-yes" id="yesButton" type="button">Sim</button>
+        <button class="action-button action-no" id="noButton" type="button">Nao</button>
+      </div>
+    </section>
+
+    <!-- Final celebration screen -->
+    <section class="celebration-screen hidden" id="celebrationScreen" aria-labelledby="celebrationTitle">
+      <div class="celebration-card">
+        <p class="eyebrow">Resposta correta detectada</p>
+        <h2 id="celebrationTitle">Happy happy happy</h2>
+        <div class="media-frame celebration-media">
+          <img id="happyGif" src="assets/happy.gif" alt="GIF comemorativo">
+          <div class="media-placeholder" id="gifPlaceholder">
+            <span>GIF especial aqui</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <canvas id="celebrationCanvas" aria-hidden="true"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

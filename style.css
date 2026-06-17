@@ -1,0 +1,509 @@
+:root {
+  --bg-dark: #05030d;
+  --bg-deep: #110824;
+  --bg-purple: #4f1d95;
+  --bg-blue: #2066ff;
+  --card-bg: rgba(10, 8, 25, 0.78);
+  --card-border: rgba(153, 113, 255, 0.28);
+  --text-main: #f7f3ff;
+  --text-soft: #cabcf4;
+  --text-muted: #a4a1c4;
+  --accent-pink: #ff7ccf;
+  --accent-red: #ff465e;
+  --accent-blue: #8ac6ff;
+  --shadow-main: 0 30px 80px rgba(6, 5, 18, 0.55);
+  --radius-xl: 30px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+
+/* Base layout */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  font-family: "Trebuchet MS", "Verdana", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top, rgba(124, 69, 255, 0.35), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(32, 102, 255, 0.28), transparent 30%),
+    linear-gradient(145deg, #020106 0%, var(--bg-deep) 28%, #201047 58%, #0a1640 82%, #04040c 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.04), transparent 40%),
+    linear-gradient(300deg, rgba(255, 255, 255, 0.03), transparent 35%);
+  pointer-events: none;
+}
+
+button,
+img {
+  display: block;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 18px;
+}
+
+.background-glow {
+  position: fixed;
+  border-radius: 999px;
+  filter: blur(12px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.background-glow-left {
+  width: 260px;
+  height: 260px;
+  top: 8%;
+  left: -60px;
+  background: radial-gradient(circle, rgba(155, 104, 255, 0.8), transparent 70%);
+}
+
+.background-glow-right {
+  width: 320px;
+  height: 320px;
+  right: -80px;
+  bottom: 10%;
+  background: radial-gradient(circle, rgba(28, 124, 255, 0.72), transparent 70%);
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 18%, rgba(190, 214, 255, 0.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 64% 72%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px),
+    radial-gradient(circle at 27% 76%, rgba(210, 176, 255, 0.7) 0 1px, transparent 2px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Shared cards */
+.invite-card,
+.celebration-card,
+.alert-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-main);
+}
+
+.invite-card,
+.celebration-card {
+  width: min(100%, 760px);
+  background: linear-gradient(180deg, rgba(22, 16, 50, 0.95) 0%, rgba(8, 8, 20, 0.92) 100%);
+  backdrop-filter: blur(18px);
+}
+
+.invite-card::before,
+.celebration-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(132, 76, 255, 0.22), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(32, 102, 255, 0.18), transparent 34%);
+  pointer-events: none;
+}
+
+.invite-card {
+  padding: 20px;
+}
+
+.media-frame {
+  position: relative;
+  min-height: 220px;
+  border-radius: calc(var(--radius-xl) - 8px);
+  overflow: hidden;
+  border: 1px solid rgba(170, 145, 255, 0.18);
+  background:
+    linear-gradient(135deg, rgba(79, 29, 149, 0.55), rgba(15, 15, 45, 0.84)),
+    linear-gradient(45deg, rgba(32, 102, 255, 0.3), transparent 50%);
+}
+
+.media-frame img {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+}
+
+.media-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  color: rgba(249, 240, 255, 0.95);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 124, 207, 0.2), transparent 20%),
+    radial-gradient(circle at 80% 80%, rgba(138, 198, 255, 0.2), transparent 20%),
+    linear-gradient(135deg, rgba(18, 10, 38, 0.78), rgba(26, 41, 98, 0.72));
+}
+
+.media-placeholder.hidden,
+.hidden {
+  display: none;
+}
+
+.card-copy,
+.celebration-card {
+  padding: 28px;
+}
+
+.eyebrow,
+.alert-kicker {
+  margin: 0 0 10px;
+  color: var(--accent-blue);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.card-copy h2,
+.celebration-card h2,
+.alert-panel h1 {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  line-height: 1.08;
+}
+
+.card-copy h2 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin-bottom: 18px;
+}
+
+.card-copy p {
+  margin: 0 0 14px;
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.card-copy .question {
+  margin-top: 18px;
+  margin-bottom: 0;
+  color: var(--text-main);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.button-row {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  min-height: 74px;
+  padding: 0 28px 28px;
+}
+
+.action-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 15px 28px;
+  min-width: 124px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  touch-action: manipulation;
+}
+
+.action-button:hover,
+.action-button:focus-visible {
+  transform: translateY(-2px) scale(1.02);
+  outline: none;
+}
+
+.action-yes {
+  background: linear-gradient(135deg, #8350ff, #2e82ff);
+  box-shadow: 0 14px 32px rgba(70, 77, 255, 0.35);
+}
+
+.action-yes:hover,
+.action-yes:focus-visible {
+  box-shadow: 0 18px 36px rgba(100, 108, 255, 0.45);
+}
+
+.action-no {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 70, 94, 0.92), rgba(112, 18, 36, 0.95));
+  box-shadow: 0 14px 32px rgba(185, 30, 63, 0.28);
+}
+
+.action-no.is-running {
+  position: fixed;
+  z-index: 20;
+}
+
+.celebration-screen {
+  width: min(100%, 760px);
+}
+
+.celebration-card {
+  text-align: center;
+}
+
+.celebration-card h2 {
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  margin-bottom: 24px;
+  color: #fff6ff;
+  text-shadow: 0 0 30px rgba(145, 102, 255, 0.35);
+}
+
+.celebration-media {
+  min-height: 280px;
+}
+
+.celebration-card .eyebrow {
+  margin-bottom: 14px;
+}
+
+.flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 30, 60, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 45;
+}
+
+.flash-overlay.active {
+  animation: dangerFlash 320ms ease;
+}
+
+/* Fake system alert */
+.alert-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at top, rgba(255, 70, 94, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(5, 3, 12, 0.94), rgba(7, 8, 18, 0.98));
+}
+
+.alert-panel {
+  width: min(100%, 620px);
+  padding: 28px;
+  background: linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(6, 6, 12, 0.98));
+  border-color: rgba(255, 74, 100, 0.35);
+}
+
+.alert-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 100%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 100%);
+  background-size: 32px 32px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.alert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: #ffd2d8;
+  background: rgba(255, 70, 94, 0.14);
+  border: 1px solid rgba(255, 70, 94, 0.26);
+  font-size: 0.85rem;
+}
+
+.alert-badge::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  box-shadow: 0 0 14px rgba(255, 70, 94, 0.8);
+}
+
+.alert-panel h1 {
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  color: #fff2f4;
+  text-shadow: 0 0 20px rgba(255, 70, 94, 0.18);
+}
+
+.alert-copy {
+  margin: 18px 0 22px;
+  max-width: 42ch;
+  color: #e7c4cb;
+  line-height: 1.7;
+}
+
+.countdown-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 70, 94, 0.16);
+}
+
+.countdown-label {
+  color: #ffccd4;
+}
+
+.countdown-value {
+  min-width: 2ch;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  color: #ffffff;
+}
+
+.alert-meter {
+  height: 8px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.alert-meter span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(255, 70, 94, 0.9), rgba(255, 160, 120, 0.92));
+  transform-origin: left center;
+  animation: meterDrain 5s linear forwards;
+}
+
+#celebrationCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* Motion */
+@keyframes dangerFlash {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes meterDrain {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes revealPop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.invite-card,
+.celebration-card {
+  animation: revealPop 700ms ease both;
+}
+
+/* Responsive adjustments */
+@media (max-width: 720px) {
+  .page {
+    padding: 18px 14px 26px;
+  }
+
+  .invite-card {
+    padding: 14px;
+  }
+
+  .card-copy,
+  .celebration-card,
+  .alert-panel {
+    padding: 22px;
+  }
+
+  .button-row {
+    padding: 0 16px 22px;
+  }
+
+  .action-button {
+    min-width: 112px;
+    padding: 14px 22px;
+  }
+
+  .countdown-shell {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .background-glow-left,
+  .background-glow-right {
+    opacity: 0.38;
+  }
+
+  .media-frame,
+  .media-frame img {
+    min-height: 190px;
+  }
+
+  .celebration-media {
+    min-height: 220px;
+  }
+
+  .card-copy p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .action-button {
+    flex: 1;
+  }
+}
