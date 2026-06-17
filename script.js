@@ -31,6 +31,12 @@ function setupMediaFallback(imageId, placeholderId) {
     placeholder.classList.remove("hidden");
   }
 
+  function hidePlaceholder() {
+    placeholder.classList.add("hidden");
+    placeholder.setAttribute("aria-hidden", "true");
+    placeholder.style.display = "none";
+  }
+
   function tryNextSource() {
     const nextSource = fallbackQueue.shift();
 
@@ -44,7 +50,7 @@ function setupMediaFallback(imageId, placeholderId) {
 
   image.addEventListener("load", () => {
     image.style.display = "block";
-    placeholder.classList.add("hidden");
+    hidePlaceholder();
   });
 
   image.addEventListener("error", () => {
@@ -53,7 +59,7 @@ function setupMediaFallback(imageId, placeholderId) {
 
   if (image.complete) {
     if (image.naturalWidth > 0) {
-      placeholder.classList.add("hidden");
+      hidePlaceholder();
     } else {
       tryNextSource();
     }
